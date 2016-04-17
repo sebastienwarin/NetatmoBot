@@ -14,10 +14,15 @@ namespace NetatmoBot.Services
         private readonly string _clientId;
         private readonly string _clientSecret;
 
-        public AuthenticationService()
+        public AuthenticationService() :
+            this(System.Configuration.ConfigurationManager.AppSettings["Netatmo.ClientId"], System.Configuration.ConfigurationManager.AppSettings["Netatmo.ClientSecret"])
         {
-            _clientId = System.Configuration.ConfigurationManager.AppSettings["Netatmo.ClientId"];
-            _clientSecret = System.Configuration.ConfigurationManager.AppSettings["Netatmo.ClientSecret"];
+        }
+
+        public AuthenticationService(string clientId, string clientSecret)
+        {
+            _clientId = clientId;
+            _clientSecret = clientSecret;
         }
 
         public AuthenticationToken AuthenticateUser()

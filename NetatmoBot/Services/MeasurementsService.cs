@@ -32,14 +32,18 @@ namespace NetatmoBot.Services
             string type = GetMeasurementType(module);
             string scale = "max";
 
-            string url = string.Format(
-                "{0}?access_token={1}&device_id={2}&module_id={3}&type={4}&scale={5}",
+           string url = string.Format(
+                "{0}?access_token={1}&device_id={2}&type={3}&scale={4}&date_end=last",
                 _uri,
                 _authenticationToken.Token,
                 deviceId,
-                module.Id,
                 type,
                 scale);
+
+            if (module != null)
+            {
+                url = string.Concat(url, "&module_id=", module.Id);
+            }
 
             // Optional.
             long dateBegin = DateTime.UtcNow.AddHours(-4).ToUnixTicks();
